@@ -1,41 +1,23 @@
-import React, { ReactNode } from 'react'
-import Link from 'next/link'
-import Head from 'next/head'
+import React, { ReactNode } from "react";
+import NavBar from "./NavBar";
 
 type Props = {
-  children?: ReactNode
-  title?: string
-}
+  children?: ReactNode;
+  title?: string;
+  authData?:{} | undefined
+};
+const Layout = ({ children }: Props) => {
+  return (
+    <div>
+      <NavBar/>
+      <header className="bg-white">
+        <div className="w-screen h-full">{children}</div>
+      </header>
+      <footer className="h-10 fixed w-full xs:mb-0 bottom-0 bg-gray-800 text-white text-center">
+        © Copyright - SystemPC 2021
+      </footer>
+    </div>
+  );
+};
 
-const Layout = ({ children, title = 'This is the default title' }: Props) => (
-  <div>
-    <Head>
-      <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
-    <header>
-      <nav>
-        <Link href="/">
-          <a>Home</a>
-        </Link>{' '}
-        |{' '}
-        <Link href="/about">
-          <a>About</a>
-        </Link>{' '}
-        |{' '}
-        <Link href="/users">
-          <a>Users List</a>
-        </Link>{' '}
-        | <a href="/api/users">Users API</a>
-      </nav>
-    </header>
-    {children}
-    <footer>
-      <hr />
-      <span>I'm here to stay (Footer)</span>
-    </footer>
-  </div>
-)
-
-export default Layout
+export default Layout;
