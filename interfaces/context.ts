@@ -1,7 +1,10 @@
-import { Token } from "./token";
-
 export interface Context {
-    auth?:Token | undefined,
-    logout?:Function | any,
-    setUser?:Function
+    auth?: {
+        email?: string
+        exp?: bigint
+        iat?: bigint
+        clienteid?: number
+    } | undefined,
+    handleLoggout?: Function | any,
+    setUser?: Function
 }

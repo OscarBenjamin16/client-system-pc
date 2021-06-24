@@ -1,58 +1,31 @@
-import React, { SetStateAction, useState } from "react";
-import { Styles } from "../utils/styles";
-import { Validation } from "../utils/validations";
-import { errorsValues } from "../interfaces/user";
+import React, { SetStateAction } from "react";
 import { register } from "../services/auth.service";
+import { toast } from "react-toastify";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 interface Props {
   showModal: boolean;
   setShowModal: React.Dispatch<SetStateAction<boolean>>;
 }
-
+interface Register{
+  nombre: string,
+    apellido: string,
+    email: string,
+    password: string,
+    rePassword: string,
+}
 export default function Modal({ showModal, setShowModal }: Props) {
-  const styles = new Styles();
-  const rules = new Validation();
-  const [user, setUser] = useState(initialValues());
-  const [errors, setErrors] = useState(errorsInitial());
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-    setErrors(errorsInitial());
-  };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (rules.isEmptyForm(user)) {
-      if (rules.isEmail(user)) {
-        if (rules.isSecurePassword(user)) {
-          if (rules.isSamePassword(user)) {
-            register(user)
-              .then((res) => {
-                if(res.code === 400){
-                  alert("EMAIL IN USE")
-                }else{
-                  alert("Se creo")
-                  setShowModal(false)
-                  setUser(initialValues())
-                }
-              })
-              .catch(() => {
-                console.log("error en todo XD");
-              });
-          } else {
-            const err: errorsValues = { ...errors, rePassword: true };
-            setErrors(err);
-          }
-        } else {
-          const err: errorsValues = { ...errors, password: true };
-          setErrors(err);
-        }
-      } else {
-        const err: errorsValues = { ...errors, email: true };
-        setErrors(err);
+  const onSubmit = (values:Register) => {
+    console.log(values)
+    register(values).then(res=>{
+      if(res.ok){
+        toast.success(res.message)
+        setShowModal(false)
+        return;
       }
-    } else {
-      const err: errorsValues = { ...errors, empty: true };
-      setErrors(err);
-    }
+      toast.error(res.message)
+    })
   };
   return (
     <>
@@ -78,125 +51,138 @@ export default function Modal({ showModal, setShowModal }: Props) {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <form
-                    className="form-horizontal w-max mx-auto"
-                    method="POST"
-                    onSubmit={onSubmit}
+                  <Formik
+                    initialValues={initialValues()}
+                    onSubmit={(fields) => onSubmit(fields)}
+                    validationSchema={Yup.object().shape({
+                      nombre: Yup.string().required("El nombre es requerido"),
+                      apellido: Yup.string().required("El apellido es requerido"),
+                      email:Yup.string().email("Direccion de correo invalida").required("El email es requerido"),
+                      password: Yup.string()
+                        .min(8, "La contraseña debe contener al menos 8 caracteres")
+                        .required("La contraseña es requerida"),
+                      rePassword: Yup.string()
+                        .oneOf([
+                          Yup.ref("password"),null],
+                          "Las contraseñas deben ser iguales",
+                        )
+                        .required("Debes confirmar tu contraseña"),
+                    })}
                   >
-                    <div className="flex flex-col">
-                      {errors.empty && (
-                        <span className="text-xs text-red-600">
-                          No dejes campos vacios
-                        </span>
-                      )}
-                      <label
-                        className="text-gray-600 uppercase"
-                        style={styles.font}
-                      >
-                        NOMBRE
-                      </label>
-                      <input
-                        id="nombre"
-                        type="text"
-                        className="flex-grow text-xs h-8 w-64 px-2 border rounded border-grey-400"
+                  {({ errors, touched }) => (
+                    <Form>
+                      <div className="w-72">
+                        <label className="text-xs">Nombre</label>
+                        <Field
+                          name="nombre"
+                          placeholder="Ingresa tu nombre"
+                          className={
+                            "text-gray-500 border w-full outline-none focus:outline-none rounded-sm px-2 text-xs py-1 mt-2" +
+                            (errors.nombre && touched.nombre
+                              ? " border-red-500"
+                              : " border-gray-300")
+                          }
+                        />
+                      </div>
+                      {errors.nombre && (
+                      <ErrorMessage
                         name="nombre"
-                        defaultValue=""
-                        placeholder="Escribe tu nombre"
-                        onChange={onChange}
+                        component="span"
+                        className="text-red-400 font-small"
                       />
-                    </div>
-                    <div className="flex flex-col mt-4">
-                      <label
-                        className="text-gray-600 uppercase"
-                        style={styles.font}
-                      >
-                        APELLIDO
-                      </label>
-                      <input
-                        id="apellido"
-                        type="text"
-                        className="flex-grow text-xs h-8 w-64 px-2 border rounded border-grey-400"
+                    )}
+                       <div className="w-72">
+                        <label className="text-xs">Apellido</label>
+                        <Field
+                          name="apellido"
+                          placeholder="Ingresa tu apellido"
+                          className={
+                            "text-gray-500 border w-full outline-none focus:outline-none rounded-sm px-2 text-xs py-1 mt-2" +
+                            (errors.apellido && touched.apellido
+                              ? " border-red-500"
+                              : " border-gray-300")
+                          }
+                        />
+                      </div>
+                      {errors.apellido && (
+                      <ErrorMessage
                         name="apellido"
-                        defaultValue=""
-                        placeholder="Escribe tu apellido"
-                        onChange={onChange}
+                        component="span"
+                        className="text-red-400 font-small"
                       />
-                    </div>
-                    <div className="flex flex-col mt-4">
-                      <label
-                        className="text-gray-600 uppercase"
-                        style={styles.font}
-                      >
-                        EMAIL
-                      </label>
-                      <input
-                        id="email"
-                        type="text"
-                        className="flex-grow text-xs h-8 w-64 px-2 border rounded border-grey-400"
-                        name="email"
-                        defaultValue=""
-                        placeholder="Escribe tu email"
-                        onChange={onChange}
-                      />
+                    )}
+                      <div className="w-72">
+                        <label className="text-xs">E-mail</label>
+                        <Field
+                          name="email"
+                          placeholder="Ingresa tu email"
+                          className={
+                            "text-gray-500 border w-full outline-none focus:outline-none rounded-sm px-2 text-xs py-1 mt-2" +
+                            (errors.email && touched.email
+                              ? " border-red-500"
+                              : " border-gray-300")
+                          }
+                        />
+                      </div>
                       {errors.email && (
-                        <span className="text-sm text-red-600">
-                          Email invalido
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex flex-col mt-4">
-                      <label
-                        className="text-gray-600 uppercase"
-                        style={styles.font}
-                      >
-                        PASSWORD
-                      </label>
-                      <input
-                        id="password"
-                        type="password"
-                        className="flex-grow text-xs h-8 px-2 rounded border border-grey-400"
-                        name="password"
-                        required
-                        placeholder="Escribe tu password"
-                        onChange={onChange}
+                      <ErrorMessage
+                        name="email"
+                        component="span"
+                        className="text-red-400 font-small"
                       />
+                    )}
+                      <div className="w-72">
+                        <label className="text-xs">Password</label>
+                        <Field
+                          name="password"
+                          type="password"
+                          placeholder="Ingresa tu password"
+                          className={
+                            "text-gray-500 border w-full outline-none focus:outline-none rounded-sm px-2 text-xs py-1 mt-2" +
+                            (errors.password && touched.password
+                              ? " border-red-500"
+                              : " border-gray-300")
+                          }
+                        />
+                      </div>
                       {errors.password && (
-                        <span className="text-sm text-red-600">
-                          Las contrasena es insegura
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex flex-col mt-4">
-                      <label
-                        className="text-gray-600 uppercase"
-                        style={styles.font}
-                      >
-                        REPITE TU PASSWORD
-                      </label>
-                      <input
-                        id="rePassword"
-                        type="password"
-                        className="flex-grow text-xs h-8 px-2 rounded border border-grey-400"
-                        name="rePassword"
-                        required
-                        placeholder="Escribe de nuevo tu password"
-                        onChange={onChange}
+                      <ErrorMessage
+                        name="password"
+                        component="span"
+                        className="text-red-400 font-small"
                       />
+                    )}
+                       <div className="w-72">
+                        <label className="text-xs">Repite tu password
+                        </label>
+                        <Field
+                          name="rePassword"
+                          type="password"
+                          placeholder="repite tu password"
+                          className={
+                            "text-gray-500 border w-full outline-none focus:outline-none rounded-sm px-2 text-xs py-1 mt-2" +
+                            (errors.rePassword && touched.rePassword
+                              ? " border-red-500"
+                              : " border-gray-300")
+                          }
+                        />
+                      </div>
                       {errors.rePassword && (
-                        <span className="text-sm text-red-600">
-                          Las contrasenas no coinciden
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex flex-col mt-8">
+                      <ErrorMessage
+                        name="rePassword"
+                        component="span"
+                        className="text-red-400 font-small"
+                      />
+                    )}
                       <button
                         type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded"
+                        className="w-full mt-4 bg-blue-500 rounded-md text-sm md:text-md p-1 font-semibold text-white"
                       >
-                        Registrarse
+                        Registrar
                       </button>
-                    </div>
-                  </form>
+                    </Form>
+                  )}
+                  </Formik>
                 </div>
               </div>
             </div>
@@ -217,13 +203,4 @@ function initialValues() {
     rePassword: "",
   };
 }
-function errorsInitial() {
-  return {
-    nombre: false,
-    apellido: false,
-    email: false,
-    password: false,
-    rePassword: false,
-    empty: false,
-  };
-}
+

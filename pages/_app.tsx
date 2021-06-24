@@ -1,50 +1,57 @@
-import { AppProps } from "next/dist/next-server/lib/router/router"
-import React,{useMemo,useState,useEffect} from 'react';
-import { decodeToken,getToken } from "../services/token.service";
+import { AppProps } from "next/dist/next-server/lib/router/router";
+import React, { useMemo, useState, useEffect } from "react";
+import { isUserLogged, logout } from "../services/token.service";
 import { Token } from "../interfaces/token";
-import jsCookie from 'js-cookie';
 import AuthContext from "../context/AuthContext";
-import 'tailwindcss/tailwind.css';
-import '../styles/globals.css';
-import "slick-carousel/slick/slick.css"; 
+import "tailwindcss/tailwind.css";
+import "../styles/globals.css";
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import router from "next/router";
 
-function MyApp({ Component, pageProps }:AppProps) {
-  const [auth, setAuth] = useState<Token | undefined>();
-  const [userLogout,setUserLoggout] = useState<boolean>(false)
+function MyApp({ Component, pageProps }: AppProps) {
+  const [auth, setAuth] = useState<Token | undefined | null>();
+  const [userLogout, setUserLoggout] = useState<boolean>(false);
   useEffect(() => {
-    const token = getToken();
-    if (!token) {
-      setAuth(undefined);
-    } else {
-      const decode = decodeToken(token)
-      setAuth(decode);
-    }
-    return
+    setAuth(isUserLogged());
+    return;
   }, [userLogout]);
 
-  const logout = () => {
-    jsCookie.remove("token")
-    setUserLoggout(true)
+  const handleLoggout = () => {
+    logout();
+    setUserLoggout(true);
+    router.push("/auth");
   };
-  const setUser = (user:Token | undefined) => {
+  const setUser = (user: Token | undefined) => {
     setAuth(user);
   };
 
   const authData = useMemo(
     () => ({
       auth,
-      logout,
+      handleLoggout,
       setUser,
     }),
     [auth]
   );
-    return (
+  return (
+    <>
       <AuthContext.Provider value={authData}>
         <Component {...pageProps} />
       </AuthContext.Provider>
-    )
-  }
-  
-  export default MyApp
-  
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick={false}
+        draggable
+        pauseOnHover
+      />
+    </>
+  );
+}
+
+export default MyApp;

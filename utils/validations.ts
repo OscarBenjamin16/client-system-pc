@@ -2,7 +2,7 @@ import { User } from "../interfaces/user"
 
 export class Validation {
     readonly emailValidation = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    readonly passwordSecure = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
+    readonly passwordSecure = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?_&])([A-Za-z\d$@$!%*_?&]|[^ ]){8,15}$/;
     isEmptyForm = (user: User) => {
         if (user.nombre !== ""
             && user.apellido !== ""

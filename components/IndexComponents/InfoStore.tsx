@@ -13,10 +13,7 @@ const InfoStore = () => {
             />
           </div>
           <p className=" w-52 text-gray-300 text-xs sm:text-sm  md:text-xs sm:w-40 md:w-60 text-center">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-            iste est consectetur facilis voluptates, beatae sit blanditiis,
-            excepturi mollitia aperiam quod, quaerat ratione nisi explicabo
-            omnis inventore repellendus nesciunt veritatis!
+           Puedes realizar tus pagos con PayPal o hacer reservaciones y luego pagarlas en el local
           </p>
         </div>
         <div className="py-4 flex-1 text-center flex justify-center items-center flex-col">
@@ -29,10 +26,7 @@ const InfoStore = () => {
             />
           </div>
           <p className="w-52 text-gray-300 text-xs sm:text-sm  md:text-xs sm:w-40 md:w-60 text-center">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-            iste est consectetur facilis voluptates, beatae sit blanditiis,
-            excepturi mollitia aperiam quod, quaerat ratione nisi explicabo
-            omnis inventore repellendus nesciunt veritatis!
+            Las mejores ofertas y los mejores precios pensando en el bienestar de nuestros clientes
           </p>
         </div>
         <div className="py-4 flex-1 flex justify-center items-center flex-col text-center">
@@ -45,10 +39,7 @@ const InfoStore = () => {
             />
           </div>
           <p className="w-52 text-xs text-gray-300 sm:text-sm  md:text-xs sm:w-40 md:w-60 text-center">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-            iste est consectetur facilis voluptates, beatae sit blanditiis,
-            excepturi mollitia aperiam quod, quaerat ratione nisi explicabo
-            omnis inventore repellendus nesciunt veritatis!
+            Contamos con los mejores proveedores y los mejores productos a tu disposicion
           </p>
         </div>
       </div>
