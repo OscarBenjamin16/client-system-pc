@@ -31,7 +31,6 @@ let slides = [
 ];
 
 const SliderImg = () => {
-  const [_, setAutoPlay] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   // setTimeout(() => {
   //   nextSlide();
@@ -45,19 +44,9 @@ const SliderImg = () => {
     let slide = activeSlide - 1 < 0 ? slides.length - 1 : activeSlide - 1;
     setActiveSlide(slide);
   };
-
-  const pause = () => {
-    setAutoPlay(false);
-  };
-
-  const resume = () => {
-    setAutoPlay(true);
-  };
   return (
     <div
       className="flex mt-10 mr-80"
-      onMouseEnter={pause}
-      onMouseLeave={resume}
     >
       {slides.map((slide, index) => {
         return (

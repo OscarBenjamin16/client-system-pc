@@ -20,7 +20,6 @@ import { io } from "socket.io-client";
 const index = () => {
   const [items, setitems] = useState<[Cart] | undefined>(undefined);
   const [reload, setReload] = useState(false);
-  const [_, setLoading] = useState(false);
   const [cupon, setCupon] = useState<string>();
   const [cuponchecked, setcuponchecked] = useState<string>();
   const router = useRouter();
@@ -57,12 +56,10 @@ const index = () => {
       toast.error("debes iniciar sesion");
       return;
     }
-    setLoading(true);
     if (items) {
       addReservation(items, cuponchecked).then((res) => {
         if (res.ok) {
           socket.emit("new", "A new order is added");
-          setLoading(false);
           clearCart();
           router.push("/catalog");
           toast.success("Gracias por su compra");
