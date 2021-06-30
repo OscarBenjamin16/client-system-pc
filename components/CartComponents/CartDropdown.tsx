@@ -11,7 +11,7 @@ interface Props {
 
 const CartDropdown = (props: Props) => {
   const { loadCart, setLoadCart } = props;
-  const [items, setItems] = useState<[Cart | undefined] | []>();
+  const [items, setItems] = useState<[Cart]>();
   const [total, setTotal] = useState<number>();
   useEffect(() => {
     setItems(getItems());
