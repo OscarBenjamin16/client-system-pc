@@ -20,7 +20,7 @@ import { io } from "socket.io-client";
 const index = () => {
   const [items, setitems] = useState<[Cart] | undefined>(undefined);
   const [reload, setReload] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [_, setLoading] = useState(false);
   const [cupon, setCupon] = useState<string>();
   const [cuponchecked, setcuponchecked] = useState<string>();
   const router = useRouter();

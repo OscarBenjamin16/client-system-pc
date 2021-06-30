@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Cart } from "../../interfaces/product";
 import TD from "./TD";
 import TH from "./TH";
-import Loading from "../GlobalComponents/Loading";
 
 interface Props {
   items: [Cart | undefined] | undefined;

@@ -31,7 +31,7 @@ let slides = [
 ];
 
 const SliderImg = () => {
-  const [autoPlay, setAutoPlay] = useState(false);
+  const [_, setAutoPlay] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   // setTimeout(() => {
   //   nextSlide();
