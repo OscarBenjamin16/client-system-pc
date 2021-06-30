@@ -71,7 +71,7 @@ export default function ProductInfo(props: CatalogProps) {
             className="w-8 md:w-10 lg:w-16"
           />
         </div>
-        <span className="bg-green-500 w-11 font-small rounded overflow-hidden lg:text-sm p-1 font-bold text-white mt-2">
+        <span className="bg-green-500 w-14 font-small rounded overflow-hidden lg:text-sm p-1 font-bold text-white mt-2">
           ${product.costo_standar}
         </span>
         <div className="grid grid-cols-1 gap-1 mt-4">

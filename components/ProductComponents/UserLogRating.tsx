@@ -85,15 +85,6 @@ const UserLogRating = (props: Props) => {
                 }
                 style={{ minWidth: "12rem" }}
               >
-                <a
-                  href="#pablo"
-                  className={
-                    "text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent "
-                  }
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Eliminar
-                </a>
                 <button
                   className="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent "
                   onClick={() => setShowForm(true)}

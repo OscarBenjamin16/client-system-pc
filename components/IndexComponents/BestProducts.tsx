@@ -1,11 +1,18 @@
 import React from "react";
 import { PRating } from "../../interfaces/product";
 import { showImage } from "../../services/catalog.service";
+import { io } from "socket.io-client";
+
 interface Props {
   products: PRating[];
 }
 
 const BestProducts = ({ products }: Props) => {
+  const socket = io("http://localhost:5000");
+  const newOrder = ()=>{
+    socket.on("connect", () => {});
+    socket.emit("new","new order is added")
+  }
   return (
     <div className="mt-4 ml-2 shadow section-new" style={{ width: "95%" }}>
       <span className="bg-blue-500 text-white p-3 mb-4 text-center">

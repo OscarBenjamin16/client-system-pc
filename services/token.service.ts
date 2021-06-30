@@ -27,6 +27,7 @@ export function isUserLogged(): Token | null {
     }
     if (isExpiredToken(token)) {
         logout()
+        return null;
     }
     return jwt(token)
 

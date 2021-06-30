@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useState, createRef, useEffect, SetStateAction } from "react";
 import Popper, { ReferenceObject } from "popper.js";
 import CartDropdown from "./CartDropdown";

@@ -115,17 +115,11 @@ const SearchSection = (props: Props) => {
           ))}
         </select>
       </li>
-      <li className="border text-sm border-t-0 border-r-0 border-l-0 lg:px-4 mt-4 cursor-pointer">
-        Mejores productos
-      </li>
       <li
         onClick={() => props.getOfert()}
         className="border text-sm border-t-0 border-r-0 border-l-0 lg:px-4 mt-4 cursor-pointer"
       >
         Ofertas
-      </li>
-      <li className="border text-sm border-t-0 border-r-0 border-l-0 lg:px-4 mt-4 cursor-pointer">
-        Mas vendidos
       </li>
     </ul>
   );

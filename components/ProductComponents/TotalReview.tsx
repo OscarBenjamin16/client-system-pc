@@ -18,7 +18,7 @@ const TotalReview = (props: Props) => {
   return (
     <div>
       <span className="text-4xl md:text-7xl font-bold mt-2">
-        {parcedReview.toFixed(1)}
+        {isNaN(parcedReview) ? 0 : parcedReview.toFixed(1)}
       </span>
       {totalReview && (
         <div>

@@ -23,6 +23,7 @@ function useStickyState(
       id: value.id,
       qt: 1,
       price: total,
+      original_price:Number(value.costo_standar)
     };
     setItemCart(values);
     toast.success("Se agrego al carrito")
@@ -42,7 +43,7 @@ const Details = (props: Props) => {
       <PDetail name="Nombre" data={product?.nombreProducto} />
       <PDetail name="Marca" data={product?.marca.marca} />
       <PDetail name="Categoria" data={product?.categoria.categoria} />
-      <PDetail name="Precio" data={product?.costo_standar} />
+      <PDetail name="Precio" data={"$"+product?.costo_standar} />
       <PDetail name="Descuento" data={Number(product?.descuento) + "%"} />
       <PDetail name="Descripcion" data={product?.descripcion} />
       <button

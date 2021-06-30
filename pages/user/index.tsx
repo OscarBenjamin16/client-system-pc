@@ -52,9 +52,6 @@ const index = () => {
               {info && <UserInfo info={info} />}
               {info && (
                 <div className="mt-4 md:mt-auto flex">
-                  <button className="px-2 md:px-6 bg-blue-500 py-1 text-white rounded-xl text-xs md:text-sm">
-                    Cambiar contraseña
-                  </button>
                   <button
                     onClick={() => setShowModal(true)}
                     className="px-2 md:px-6 bg-green-500 py-1 text-white rounded-xl text-xs md:text-sm ml-4"
