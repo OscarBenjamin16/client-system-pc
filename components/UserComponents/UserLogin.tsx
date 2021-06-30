@@ -1,16 +1,14 @@
 import { useState, FocusEvent, ChangeEvent } from "react";
-import Layout from "../../components/Layout";
 import { Styles } from "../../utils/styles";
 import RegisterModal from "../../components/RegisterModal";
 import { login } from "../../services/auth.service";
 import { setToken } from "../../services/token.service";
 import { Context } from "../../interfaces/context";
-import useAuth from "../../hooks/useAuth";
+import {useAuth} from "../../hooks/useAuth";
 
 const UserLogin = () => {
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState(initialValues());
-  const [reload, setReload] = useState<boolean>(false);
   const styles = new Styles();
   const ctx: Context = useAuth();
   const onSubmit = (e: FocusEvent<HTMLFormElement>) => {
