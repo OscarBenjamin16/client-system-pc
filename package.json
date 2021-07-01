@@ -4,10 +4,9 @@
   "scripts": {
     "dev": "next",
     "build:server": "tsc --project tsconfig.server.json",
-    "serve": "nodemon server.ts",
     "build:next": "next build",
     "build": "npm run build:next && npm run build:server",
-    "start": "NODE_ENV=production && node dist/index.js",
+    "start": "NODE_ENV=production node dist/index.js",
     "start:dev": "next start",
     "type-check": "tsc"
   },
