@@ -42,6 +42,7 @@ const index = () => {
     if (items) {
       checkout(items, cuponchecked)
         .then((res) => {
+          console.log(res)
           if (typeof window !== "undefined") {
             window.location.href = res.redirectUrl;
           }
