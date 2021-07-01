@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
-    "serve": "nodemon server.js",
-    "build": "next build",
-    "start": "next start",
+    "build:server": "tsc --project tsconfig.server.json",
+    "serve": "nodemon server.ts",
+    "build:next": "next build",
+    "build": "npm run build:next && npm run build:server",
+    "start": "SET NODE_ENV=production && node dist/index.js",
+    "start:dev": "next start",
     "type-check": "tsc"
   },
   "dependencies": {

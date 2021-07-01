@@ -1,6 +1,6 @@
-const express = require('express');
-const next = require('next')
-const { createProxyMiddleware } = require("http-proxy-middleware")
+import express from "express"
+import next from "next"
+import { createProxyMiddleware } from "http-proxy-middleware";
 
 const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -36,3 +36,5 @@ app.prepare().then(() => {
 }).catch((err) => {
     console.log('Error:::::', err)
 })
+
+export default {}
