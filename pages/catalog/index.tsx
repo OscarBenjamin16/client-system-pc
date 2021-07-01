@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import CartButton from "../../components/CartComponents/CartButton";
 import Bar from "../../components/CatalogComponents/Bar";
 import NotResult from "../../components/CatalogComponents/NotResult";
@@ -69,9 +68,6 @@ const index = () => {
         });
         rangePagination(1, res.totalPages);
       })
-      .catch(() => {
-        toast.error("Ah ocurrido un error inesperado")
-      });
       setReload(false);
   };
   const getOffert = () => {
