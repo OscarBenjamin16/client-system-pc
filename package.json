@@ -7,7 +7,7 @@
     "serve": "nodemon server.ts",
     "build:next": "next build",
     "build": "npm run build:next && npm run build:server",
-    "start": "SET NODE_ENV=production && node dist/index.js",
+    "start": "NODE_ENV=production && node dist/index.js",
     "start:dev": "next start",
     "type-check": "tsc"
   },
