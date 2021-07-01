@@ -55,7 +55,7 @@ export function sumItemCart(product: Cart) {
 export function clearCart() {
     jsCookie.remove('cart')
 }
-export async function checkout(items: [Cart], code: string | undefined) {
+export async function checkout(items: [Cart], code?: string) {
     const response = await fetch(`${SERVER_API}/pay-checkout?code=${code}`, {
         method: 'POST',
         headers: {
