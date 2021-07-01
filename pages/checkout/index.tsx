@@ -40,10 +40,14 @@ const index = () => {
       return;
     }
     if (items) {
-      checkout(items, cuponchecked)
+      checkout(items, cuponchecked && cuponchecked)
         .then((res) => {
           console.log(res)
-          
+          if (typeof window !== "undefined" && res.redirectUrl) {
+            window.location.href = res.redirectUrl;
+            return;
+          }
+          toast.error(res.message)
         })
         .catch(() => {
           toast.error("Ah ocurrido un error inesperado")
