@@ -43,9 +43,7 @@ const index = () => {
       checkout(items, cuponchecked)
         .then((res) => {
           console.log(res)
-          if (typeof window !== "undefined") {
-            window.location.href = res.redirectUrl;
-          }
+          
         })
         .catch(() => {
           toast.error("Ah ocurrido un error inesperado")
