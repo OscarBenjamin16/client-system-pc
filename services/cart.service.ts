@@ -68,7 +68,8 @@ export async function checkout(items: [Cart], code?: string) {
     return response.json()
 }
 export async function checkPayment(PayerID: string, paymentId: string, token: string, code: string) {
-    const response = await fetch(`${SERVER_API}/pay-checkout/success?paymentId=${paymentId}&token=${token}&PayerID=${PayerID}&code=${code}`, {
+    const url = code ? `${SERVER_API}/pay-checkout/success?paymentId=${paymentId}&token=${token}&PayerID=${PayerID}&code=${code}` : `${SERVER_API}/pay-checkout/success?paymentId=${paymentId}&token=${token}&PayerID=${PayerID}`
+    const response = await fetch(url, {
         method: 'POST',
         headers: {
             token: `Bearer:${getToken()}`,
