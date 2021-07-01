@@ -23,7 +23,7 @@ const index = () => {
   const [cupon, setCupon] = useState<string>();
   const [cuponchecked, setcuponchecked] = useState<string>();
   const router = useRouter();
-  const socket = io("http://localhost:5000");
+  const socket = io("https://systempcs.herokuapp.com");
   socket.on("connect", () => {});
   useEffect(() => {
     if (!getToken()) {
@@ -47,7 +47,7 @@ const index = () => {
           }
         })
         .catch(() => {
-          console.log("Error");
+          toast.error("Ah ocurrido un error inesperado")
         });
     }
   };
@@ -70,7 +70,6 @@ const index = () => {
     }
   };
   const getInfoCupon = () => {
-    console.log(items);
     if (cupon !== "") {
       checkCupon(cupon ? cupon : "").then((res) => {
         if (!res.ok) {

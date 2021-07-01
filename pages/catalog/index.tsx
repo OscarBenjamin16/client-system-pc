@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import CartButton from "../../components/CartComponents/CartButton";
 import Bar from "../../components/CatalogComponents/Bar";
 import NotResult from "../../components/CatalogComponents/NotResult";
@@ -69,7 +70,7 @@ const index = () => {
         setReload(false);
       })
       .catch(() => {
-        console.log("error en el servidor");
+        toast.error("Ah ocurrido un error inesperado")
       });
   };
   const getOffert = () => {

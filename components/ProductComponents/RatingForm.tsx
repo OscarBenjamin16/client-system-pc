@@ -46,7 +46,7 @@ const RatingForm = (props: Props) => {
             setIsLoading(true);
           })
           .catch(() => {
-            console.log("error xd");
+            toast.error("Ah ocurrido un error inesperado")
           });
         return;
       }
@@ -57,7 +57,7 @@ const RatingForm = (props: Props) => {
           setShowForm(false);
         })
         .catch(() => {
-          console.log("error xd");
+          toast.error("Ah ocurrido un error inesperado")
         });
     }
   };

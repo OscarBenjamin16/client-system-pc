@@ -5,6 +5,7 @@ import { confirmAccount } from "../../services/auth.service";
 import Loading from "../../components/GlobalComponents/Loading";
 import Waiting from "../../components/ConfirmComponents/Waiting";
 import IsOk from "../../components/ConfirmComponents/IsOk";
+import { toast } from "react-toastify";
 
 export default function Comfirm() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function Comfirm() {
           }
         })
         .catch(() => {
-          console.log("error en los datos");
+          toast.error("Ah ocurrido un error inesperado")
         });
     }, 2000);
   };

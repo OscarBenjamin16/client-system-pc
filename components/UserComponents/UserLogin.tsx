@@ -5,6 +5,7 @@ import { login } from "../../services/auth.service";
 import { setToken } from "../../services/token.service";
 import { Context } from "../../interfaces/context";
 import {useAuth} from "../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const UserLogin = () => {
   const [showModal, setShowModal] = useState(false);
@@ -16,7 +17,6 @@ const UserLogin = () => {
     if (user.email !== "" && user.password !== "") {
       login(user)
         .then((res) => {
-          console.log(res);
           if (res.token) {
             setToken(res.token);
             if (window.document.referrer.indexOf(window.location.host) !== -1) {
@@ -27,7 +27,7 @@ const UserLogin = () => {
           }
         })
         .catch(() => {
-          console.log("error en todo xDxD");
+          toast.error("Ah ocurrido un error inesperado")
         });
     }
   };

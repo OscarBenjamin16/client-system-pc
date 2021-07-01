@@ -20,11 +20,6 @@ const { ratingData } = props;
     const bar3 = filterbars(ratingData, 3);
     const bar4 = filterbars(ratingData, 4);
     const bar5 = filterbars(ratingData, 5);
-    console.log(bar5)
-    console.log(ratingData)
-    // const totalRatingSum = ratingData
-    //   ?.map((rat: RatingVals) => rat.ratingNumber)
-    //   .reduce((a = 0, b = 0) => a + b);
     setBars({
       bar_1: bar1?.length,
       bar_2: bar2?.length,

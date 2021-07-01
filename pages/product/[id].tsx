@@ -17,6 +17,7 @@ import UserLogRating from "../../components/ProductComponents/UserLogRating";
 import { getToken } from "../../services/token.service";
 import Loading from "../../components/GlobalComponents/Loading";
 import CartButton from "../../components/CartComponents/CartButton";
+import { toast } from "react-toastify";
 
 const ProductInfo = () => {
   const [product, setProduct] = useState<Product>();
@@ -38,9 +39,7 @@ const ProductInfo = () => {
           setProduct(res.producto);
         })
         .catch(() => {
-          alert(
-            "Ah ocurrido un error inesperado al obtener la informacion del producto"
-          );
+          toast.error("Ah ocurrido un error inesperado")
         });
 
       getRating(Number(id))
@@ -62,7 +61,7 @@ const ProductInfo = () => {
           }
         })
         .catch(() => {
-          alert("Ah ocurrido un error inesperado");
+          toast.error("Ah ocurrido un error inesperado")
         });
     }
     setIsLoading(false);

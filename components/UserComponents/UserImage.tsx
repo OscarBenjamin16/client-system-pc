@@ -19,7 +19,6 @@ const UserImage = ({ info, setReload }: Props) => {
   );
   const onDropImage = useCallback((acceptedFile) => {
     const file = acceptedFile[0];
-    console.log(file);
     setUser_image(URL.createObjectURL(file));
     setUser_file(file);
   }, []);

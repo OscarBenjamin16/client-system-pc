@@ -10,7 +10,7 @@ const index = () => {
   const [loading, setLoading] = useState(true)
   const { query } = router;
   const { PayerID, paymentId, token,code } = query;
-  const socket = io("http://localhost:5000");
+  const socket = io("https://systempcs.herokuapp.com");
   socket.on("connect", () => {});
   const checkPay = () => {
     if (typeof paymentId !== "undefined") {

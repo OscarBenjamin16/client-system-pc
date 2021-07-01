@@ -15,7 +15,6 @@ const  Login = ()=> {
     if (user.email !== "" && user.password !== "") {
       login(user)
         .then((res) => {
-          console.log(res);
           if (res.token) {
             setToken(res.token);
             window.location.href = "/";
@@ -24,7 +23,7 @@ const  Login = ()=> {
           toast.error(res.message)
         })
         .catch(() => {
-          console.log("error en todo xDxD");
+          toast.error("error inesperado");
         });
     }
   };

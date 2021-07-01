@@ -17,7 +17,6 @@ interface Register{
 }
 export default function Modal({ showModal, setShowModal }: Props) {
   const onSubmit = (values:Register) => {
-    console.log(values)
     register(values).then(res=>{
       if(res.ok){
         toast.success(res.message)

@@ -10,6 +10,7 @@ import UserEditForm from "../../components/UserComponents/UserEditForm";
 import UserImage from "../../components/UserComponents/UserImage";
 import { useRouter } from "next/router";
 import { getToken } from "../../services/token.service";
+import { toast } from "react-toastify";
 
 const index = () => {
   const router = useRouter();
@@ -22,10 +23,9 @@ const index = () => {
     getUserbyId(Number(id))
       .then((res) => {
         setInfo(res.cliente);
-        console.log(res);
       })
       .catch(() => {
-        console.log("error xdxd");
+        toast.error("Ah ocurrido un error inesperado")
       });
   };
   useEffect(() => {

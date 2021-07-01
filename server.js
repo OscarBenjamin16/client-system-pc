@@ -9,7 +9,7 @@ const handle = app.getRequestHandler()
 
 const apiPaths = {
     '/api': {
-        target: 'http://localhost:5000',
+        target: 'https://systempcs.herokuapp.com',
         pathRewrite: {
             '^/api': '/api'
         },

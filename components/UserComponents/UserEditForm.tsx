@@ -40,7 +40,7 @@ const UserEditForm = ({ detail, setReload, setShowModal }: Props) => {
         }
       })
       .catch(() => {
-        console.log("error");
+        toast.error("Ah ocurrido un error inesperado")
       });
   };
   return (
