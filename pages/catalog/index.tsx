@@ -52,6 +52,7 @@ const index = () => {
         }
         if (res.empty) {
           products = null;
+          return;
         }
         if (products && products.length < 1) {
           setProducts(null);
@@ -67,11 +68,11 @@ const index = () => {
           totalPages: res.totalPages,
         });
         rangePagination(1, res.totalPages);
-        setReload(false);
       })
       .catch(() => {
         toast.error("Ah ocurrido un error inesperado")
       });
+      setReload(false);
   };
   const getOffert = () => {
     const productsOfert = products
