@@ -20,8 +20,8 @@ import { io } from "socket.io-client";
 const index = () => {
   const [items, setitems] = useState<[Cart] | undefined>(undefined);
   const [reload, setReload] = useState(false);
-  const [cupon, setCupon] = useState<string>();
-  const [cuponchecked, setcuponchecked] = useState<string>();
+  const [cupon, setCupon] = useState<string>("");
+  const [cuponchecked, setcuponchecked] = useState<string>("");
   const router = useRouter();
   const socket = io("https://systempcs.herokuapp.com");
   socket.on("connect", () => {});
@@ -40,7 +40,7 @@ const index = () => {
       return;
     }
     if (items) {
-      checkout(items, cuponchecked && cuponchecked)
+      checkout(items,cuponchecked)
         .then((res) => {
           console.log(res)
           if (typeof window !== "undefined" && res.redirectUrl) {

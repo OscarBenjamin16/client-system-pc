@@ -56,7 +56,8 @@ export function clearCart() {
     jsCookie.remove('cart')
 }
 export async function checkout(items: [Cart], code?: string) {
-    const response = await fetch(`${SERVER_API}/pay-checkout?CODIGO_CUPON=${code}` , {
+    const url = code !== "" ? `${SERVER_API}/pay-checkout?CODIGO_CUPON=${code}` : `${SERVER_API}/pay-checkout`
+    const response = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -67,7 +68,9 @@ export async function checkout(items: [Cart], code?: string) {
     return response.json()
 }
 export async function checkPayment(PayerID: string, paymentId: string, token: string, code?: string) {
-    const response = await fetch(`${SERVER_API}/pay-checkout/success?paymentId=${paymentId}&token=${token}&PayerID=${PayerID}&CODIGO_CUPON=${code}`, {
+    const url = code !== "" ? `${SERVER_API}/pay-checkout/success?paymentId=${paymentId}&token=${token}&PayerID=${PayerID}&CODIGO_CUPON=${code}` :
+        `${SERVER_API}/pay-checkout/success?paymentId=${paymentId}&token=${token}&PayerID=${PayerID}`
+    const response = await fetch(url, {
         method: 'POST',
         headers: {
             token: `Bearer:${getToken()}`,
@@ -77,8 +80,12 @@ export async function checkPayment(PayerID: string, paymentId: string, token: st
     })
     return response.json()
 }
-export async function addReservation(items: [Cart], cupon: string | undefined) {
-    const response = await fetch(`${SERVER_API}/orden/add-reservation?CODIGO_CUPON=${cupon}`, {
+export async function addReservation(items: [Cart], cupon?: string) {
+
+    const url = cupon !== "" ? `${SERVER_API}/orden/add-reservation?CODIGO_CUPON=${cupon}`
+        : `${SERVER_API}/orden/add-reservation`
+
+    const response = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

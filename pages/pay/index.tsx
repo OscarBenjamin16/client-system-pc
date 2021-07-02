@@ -18,7 +18,7 @@ const index = () => {
         String(PayerID),
         String(paymentId),
         String(token),
-        CODIGO_CUPON && String(CODIGO_CUPON)
+        CODIGO_CUPON ? String(CODIGO_CUPON) : ""
       )
         .then((res) => {
           if (res.ok) {
@@ -32,6 +32,8 @@ const index = () => {
         .catch(() => {
           toast.error("Error en el servidor");
         });
+    }else{
+      router.push("/auth");
     }
   };
   useEffect(() => {
