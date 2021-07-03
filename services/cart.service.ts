@@ -96,6 +96,10 @@ export async function addReservation(items: [Cart], cupon?: string) {
     return response.json();
 }
 export async function checkCupon(cupon: string) {
-    const response = await fetch(`${SERVER_API}/cupon/get-cupon?code=${cupon}`)
+    const response = await fetch(`${SERVER_API}/cupon/get-cupon?code=${cupon}`,{
+        headers: {
+            token: `Bearer:${getToken()}`
+        },
+    })
     return response.json()
 }
