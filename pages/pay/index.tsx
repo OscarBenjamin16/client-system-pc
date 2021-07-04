@@ -32,8 +32,6 @@ const index = () => {
         .catch(() => {
           toast.error("Error en el servidor");
         });
-    }else{
-      router.push("/auth");
     }
   };
   useEffect(() => {
