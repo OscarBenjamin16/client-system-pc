@@ -2,6 +2,7 @@ import React from "react";
 import { PRating } from "../../interfaces/product";
 import { showImage } from "../../services/catalog.service";
 import Link from "next/link";
+import StarRatingComponent from "react-star-rating-component";
 
 interface Props {
   products: PRating[];
@@ -37,7 +38,14 @@ const BestProducts = ({ products }: Props) => {
               <span className="text-xs font-semibold mt-2">
                 {prod.categoria.categoria}
               </span>
-              <span className="text-xs font-semibold mt-2">⭐⭐⭐</span>
+              <div>
+                  <StarRatingComponent
+                    name="rate1"
+                    starCount={5}
+                    value={prod.total}
+                    emptyStarColor="#C2BBB9"
+                  />
+                </div>
               <span className="bg-green-500 w-11 text-xs rounded md:text-xs p-1 font-medium overflow-hidden text-white mt-2">
                 ${prod.costo_standar}
               </span>
