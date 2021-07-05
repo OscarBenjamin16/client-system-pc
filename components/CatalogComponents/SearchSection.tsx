@@ -22,11 +22,11 @@ const SearchSection = (props: Props) => {
   const [categories, setCategories] = useState<[Category]>();
   const getValues = () => {
     getMarks().then((res) => {
-      const marks: [Mark] = res.filter((mark: Mark) => mark.status === true);
+      const marks: [Mark] = res.marca.filter((mark: Mark) => mark.status === true);
       setMarks(marks);
     });
     getCategories().then((res) => {
-      const categories: [Category] = res.filter(
+      const categories: [Category] = res.categoria.filter(
         (cat: Category) => cat.status === true
       );
       setCategories(categories);
