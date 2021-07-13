@@ -14,7 +14,10 @@ const index = () => {
   const getProducts = () => {
     getNewProducts().then((res) => {
       if (res.productos) {
-        setProducts(res.productos);
+        const prods: Product[] = res.productos.filter(
+          (prod: Product) => prod.status === true
+        );
+        setProducts(prods);
       }
     });
     getBestRating(1, 3).then((res) => {
@@ -22,7 +25,10 @@ const index = () => {
         const prd = res.values.sort(
           (a: PRating, b: PRating) => b.total - a.total
         );
-        setRproducts(prd);
+        const activePrd: PRating[] = prd.filter(
+          (prod: PRating) => prod.status === true
+        );
+        setRproducts(activePrd);
       }
     });
   };
