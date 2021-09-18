@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { Cart, CatalogProps, Product } from "../../interfaces/product";
-import { showImage } from "../../services/catalog.service";
 import Link from "next/link";
 import { setItemCart } from "../../services/cart.service";
 
@@ -43,7 +42,7 @@ export default function ProductInfo(props: CatalogProps) {
           <div
             className="w-full h-full flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l text-center overflow-hidden"
             style={{
-              backgroundImage: `url('${showImage(product.image)}')`,
+              backgroundImage: `url('${product.image}')`,
             }}
           ></div>
         </Link>

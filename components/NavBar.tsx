@@ -11,9 +11,6 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../hooks/useAuth";
 import { Context } from "../interfaces/context";
 import Popper, { ReferenceObject } from "popper.js";
-import { getUserbyId } from "../services/user.service";
-import { UserDetail } from "../interfaces/user";
-import { showImageClient } from "../services/client.service";
 
 interface Props {
   color: string;
@@ -24,23 +21,15 @@ interface Props {
 const Dropdown = ({ color, reload, setReload }: Props) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
-  const [user, setUser] = useState<UserDetail>();
   const btnDropdownRef = createRef<Element | ReferenceObject | any>();
   const popoverDropdownRef = createRef<Element | ReferenceObject | any>();
   const context: Context = useAuth();
-  const { auth } = context;
   const loggout = () => {
     if (typeof window !== "undefined") {
       window.location.href = "/auth";
     }
     closeDropdownPopover();
     context.handleLoggout();
-  };
-  const getUserInfo = () => {
-    auth &&
-      getUserbyId(auth.clienteid).then((res) => {
-        setUser(res.cliente);
-      });
   };
   const openDropdownPopover = () => {
     new Popper(btnDropdownRef.current, popoverDropdownRef.current, {
@@ -61,10 +50,6 @@ const Dropdown = ({ color, reload, setReload }: Props) => {
     };
   }),
     [];
-  useEffect(() => {
-    getUserInfo();
-    return;
-  }, [context]);
   // bg colors
   let bgColor;
   color === "white"
@@ -159,18 +144,10 @@ const Dropdown = ({ color, reload, setReload }: Props) => {
         className={
           (dropdownPopoverShow ? "block " : "hidden ") +
           (color === "white" ? "bg-white " : bgColor + " ") +
-          "text-base lg:left-0 dpdown float-left py-2 list-none text-left rounded shadow-lg mt-8"
+          "text-base lg:left-0 dpdown float-left py-2 list-none text-left rounded shadow-lg mt-1"
         }
         style={{ minWidth: "12rem" }}
       >
-        <div
-          className="inline-block h-32 w-32 ml-8 rounded-full ring-2 ring-white bg-green-500"
-          style={{
-            backgroundImage: `url(${user && showImageClient(user.imagen)})`,
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-          }}
-        ></div>
         <Link href="/orders">
           <p
             className={

@@ -1,7 +1,7 @@
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import { Cart, Product } from "../../interfaces/product";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getProductById, showImage } from "../../services/catalog.service";
+import { getProductById } from "../../services/catalog.service";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { removeItem, setItemCart } from "../../services/cart.service";
 
@@ -43,7 +43,7 @@ const TD = (props: Props) => {
               <div
                 className="bg-cover bg-center rounded-full w-12 h-12 overflow-hidden"
                 style={{
-                  backgroundImage: `url('${showImage(detail.image)}')`,
+                  backgroundImage: `url('${detail.image}')`,
                 }}
               />
             )}

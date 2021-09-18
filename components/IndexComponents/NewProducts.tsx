@@ -1,5 +1,4 @@
 import { Product } from "../../interfaces/product";
-import { showImage } from "../../services/catalog.service";
 import Link from "next/link";
 
 interface Props {
@@ -25,7 +24,7 @@ const NewProducts = (props: Props) => {
                 <div
                   className="w-full h-full flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l text-center overflow-hidden"
                   style={{
-                    backgroundImage: `url("${showImage(product.image)}")`,
+                    backgroundImage: `url("${product.image}")`,
                   }}
                 ></div>
               </div>

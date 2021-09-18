@@ -35,7 +35,7 @@ const SearchSection = (props: Props) => {
   const onChangeMark: ChangeEventHandler<HTMLSelectElement> = (e) => {
     const mark = e.currentTarget.value;
     getProductbyMark(Number(mark)).then((res) => {
-      if (res.empty) {
+      if (!res.ok) {
         props.setProducts(null);
         return;
       }
@@ -56,7 +56,7 @@ const SearchSection = (props: Props) => {
   const onChangeCategory: ChangeEventHandler<HTMLSelectElement> = (e) => {
     const cat = e.currentTarget.value;
     getProductbyCategory(Number(cat)).then((res) => {
-      if (res.empty) {
+      if (!res.ok) {
         props.setProducts(null);
         return;
       }

@@ -1,6 +1,5 @@
 import React from "react";
 import { PRating } from "../../interfaces/product";
-import { showImage } from "../../services/catalog.service";
 import Link from "next/link";
 import StarRatingComponent from "react-star-rating-component";
 
@@ -24,7 +23,7 @@ const BestProducts = ({ products }: Props) => {
               <div
                 className="w-full h-full flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l text-center overflow-hidden"
                 style={{
-                  backgroundImage: `url("${showImage(prod.image)}")`,
+                  backgroundImage: `url("${prod.image}")`,
                 }}
               ></div>
             </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, SetStateAction, Dispatch } from "react";
 import { Cart, Product } from "../../interfaces/product";
-import { getProductById, showImage } from "../../services/catalog.service";
+import { getProductById } from "../../services/catalog.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { removeItem } from "../../services/cart.service";
@@ -33,7 +33,7 @@ const ItemDetail = (props: Props) => {
       <div
         className="bg-cover bg-center rounded-full w-12 h-12 overflow-hidden"
         style={{
-          backgroundImage: `url('${showImage(detail?.image)}')`,
+          backgroundImage: `url('${detail?.image}')`,
         }}
       ></div>
       <span className="text-xs font-extralight ml-4 mt-4 w-28">

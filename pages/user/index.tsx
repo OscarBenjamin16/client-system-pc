@@ -7,7 +7,6 @@ import { UserDetail } from "../../interfaces/user";
 import UserInfo from "../../components/UserComponents/UserInfo";
 import Modal from "../../components/GlobalComponents/Modal";
 import UserEditForm from "../../components/UserComponents/UserEditForm";
-import UserImage from "../../components/UserComponents/UserImage";
 import { useRouter } from "next/router";
 import { getToken } from "../../services/token.service";
 import { toast } from "react-toastify";
@@ -35,7 +34,7 @@ const index = () => {
       router.push("/auth");
     }
     return;
-  }, [reload]);
+  }, [reload,ctx]);
   const logout = () => {
     window.location.href = "/auth";
     ctx.handleLoggout()
@@ -45,9 +44,6 @@ const index = () => {
       {info ? (
         <>
           <div className="flex flex-col md:flex-row m-5 shadow p-8">
-            <div className="w-12/12 md:w-4/12 justify-items-center justify-center items-center">
-              {info && <UserImage setReload={setReload} info={info} />}
-            </div>
             <div className="w-full p-5  md:ml-12 flex flex-col md:flex-row ">
               {info && <UserInfo info={info} />}
               {info && (

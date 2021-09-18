@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { toast } from "react-toastify";
 import Table from "../../components/CheckoutComponents/Table";
 import Loading from "../../components/GlobalComponents/Loading";
@@ -23,8 +23,27 @@ const index = () => {
   const [cupon, setCupon] = useState<string>("");
   const [cuponchecked, setcuponchecked] = useState<string>("");
   const router = useRouter();
-  const socket = io("https://systempcs.herokuapp.com");
-  socket.on("connect", () => {});
+  const serverURL = "http://localhost:5000";
+  const socket = useMemo(
+    () =>
+      io(serverURL, {
+        transports: ["websocket"],
+      }),
+    [serverURL]
+  );
+
+  useEffect(() => {
+    socket.on("connect", () => {});
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("disconnect", () => {});
+  }, [socket]);
+
+  const callSocket = useCallback(() => {
+    socket.emit("new", "A new order is added");
+  }, [socket]);
+
   useEffect(() => {
     if (!getToken()) {
       router.push("/auth");
@@ -40,17 +59,16 @@ const index = () => {
       return;
     }
     if (items) {
-      checkout(items,cuponchecked)
+      checkout(items, cuponchecked)
         .then((res) => {
-          console.log(res)
           if (typeof window !== "undefined" && res.redirectUrl) {
             window.location.href = res.redirectUrl;
             return;
           }
-          toast.error(res.message)
+          toast.error(res.message);
         })
         .catch(() => {
-          toast.error("Ah ocurrido un error inesperado")
+          toast.error("Ah ocurrido un error inesperado");
         });
     }
   };
@@ -62,7 +80,7 @@ const index = () => {
     if (items) {
       addReservation(items, cuponchecked).then((res) => {
         if (res.ok) {
-          socket.emit("new", "A new order is added");
+          callSocket();
           clearCart();
           router.push("/catalog");
           toast.success("Gracias por su compra");
@@ -89,7 +107,7 @@ const index = () => {
     <>
       {items ? (
         <Layout>
-          <div className="px-12">
+          <div className="px-12 flex flex-col">
             <div className="float-right mb-10">
               <div>
                 <input
@@ -105,30 +123,32 @@ const index = () => {
                 </button>
               </div>
             </div>
-            <Table
-              cupon={cuponchecked}
-              items={items}
-              reload={true}
-              setReload={setReload}
-            />
-            {items && items.length > 0 && (
-              <>
-                {" "}
-                <button
-                  onClick={makeReservation}
-                  className="bg-green-500 px-4 text-white border-0 rounded text-sm py-1"
-                >
-                  Ordenar
-                </button>
-                <button
-                  onClick={makeCheckout}
-                  className="ml-8 bg-blue-500 px-8 text-white border-0 rounded text-sm py-1"
-                >
-                  <FontAwesomeIcon icon={faPaypal} className="mr-4" />
-                  Pagar con paypal
-                </button>
-              </>
-            )}
+            <div>
+              <Table
+                cupon={cuponchecked}
+                items={items}
+                reload={true}
+                setReload={setReload}
+              />
+              {items && items.length > 0 && (
+                <>
+                  {" "}
+                  <button
+                    onClick={makeReservation}
+                    className="bg-green-500 px-4 text-white border-0 rounded text-sm py-1"
+                  >
+                    Ordenar
+                  </button>
+                  <button
+                    onClick={makeCheckout}
+                    className="ml-8 bg-blue-500 px-8 text-white border-0 rounded text-sm py-1"
+                  >
+                    <FontAwesomeIcon icon={faPaypal} className="mr-4" />
+                    Pagar con paypal
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </Layout>
       ) : (
