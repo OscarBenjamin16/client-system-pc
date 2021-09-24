@@ -16,6 +16,7 @@ import { getToken } from "../../services/token.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaypal } from "@fortawesome/free-brands-svg-icons";
 import { io } from "socket.io-client";
+import { SOCKET_URL } from "../../utils/constants";
 
 const index = () => {
   const [items, setitems] = useState<[Cart] | undefined>(undefined);
@@ -23,7 +24,7 @@ const index = () => {
   const [cupon, setCupon] = useState<string>("");
   const [cuponchecked, setcuponchecked] = useState<string>("");
   const router = useRouter();
-  const serverURL = "http://localhost:5000";
+  const serverURL = SOCKET_URL;
   const socket = useMemo(
     () =>
       io(serverURL, {
