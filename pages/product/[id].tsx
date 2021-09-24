@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { Product } from "../../interfaces/product";
-import { getProductById, showImage } from "../../services/catalog.service";
+import { getProductById } from "../../services/catalog.service";
 import Layout from "../../components/Layout";
 import { RatingVals } from "../../interfaces/rating";
 import { useAuth } from "../../hooks/useAuth";
@@ -93,7 +93,7 @@ const ProductInfo = () => {
                 <div
                   className=" w-60 h-60 flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l text-center overflow-hidden"
                   style={{
-                    backgroundImage: `url('${showImage(product?.image)}')`,
+                    backgroundImage: `url('${product?.image}')`,
                   }}
                 ></div>
               )}
