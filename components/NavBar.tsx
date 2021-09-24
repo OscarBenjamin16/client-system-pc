@@ -71,7 +71,7 @@ const Dropdown = ({ color, reload, setReload }: Props) => {
               <div className="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
                 <Link href="/">
                   <span className="text-sm font-bold leading-relaxed cursor-pointer inline-block mr-4 py-2 whitespace-no-wrap uppercase text-white">
-                    System PC
+                    M&E Soporte Tecnico 
                   </span>
                 </Link>
                 <button
