@@ -8,7 +8,6 @@ import { Cart } from "../../interfaces/product";
 import {
   addReservation,
   checkCupon,
-  checkout,
   clearCart,
   getItems,
 } from "../../services/cart.service";
