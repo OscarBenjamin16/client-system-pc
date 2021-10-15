@@ -54,25 +54,6 @@ const index = () => {
     }
     return;
   }, [reload]);
-  const makeCheckout = () => {
-    if (!getToken()) {
-      toast.error("debes iniciar sesion");
-      return;
-    }
-    if (items) {
-      checkout(items, cuponchecked)
-        .then((res) => {
-          if (typeof window !== "undefined" && res.redirectUrl) {
-            window.location.href = res.redirectUrl;
-            return;
-          }
-          toast.error(res.message);
-        })
-        .catch(() => {
-          toast.error("Ah ocurrido un error inesperado");
-        });
-    }
-  };
   const makeReservation = () => {
     if (!getToken()) {
       toast.error("debes iniciar sesion");
@@ -139,13 +120,6 @@ const index = () => {
                     className="bg-green-500 px-4 text-white border-0 rounded text-sm py-1"
                   >
                     Ordenar
-                  </button>
-                  <button
-                    onClick={makeCheckout}
-                    className="ml-8 bg-blue-500 px-8 text-white border-0 rounded text-sm py-1"
-                  >
-                    <FontAwesomeIcon icon={faPaypal} className="mr-4" />
-                    Pagar con paypal
                   </button>
                 </>
               )}
