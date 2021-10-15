@@ -6,7 +6,7 @@ interface Props {
   active: boolean;
 }
 
-const Slide = ({ background, text, active }: Props) => {
+const Slide = ({ background, active }: Props) => {
   let slideStyle = { backgroundImage: `url( ${background})` };
   return (
     <div className="slider__slide" data-active={active} style={slideStyle}>
