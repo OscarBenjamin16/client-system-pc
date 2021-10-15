@@ -6,4 +6,3 @@ export const SERVER_API = "https://mye-soporte-server.herokuapp.com/api"
 
 export const SOCKET_URL = "https://mye-soporte-server.herokuapp.com/"
 
-//export const SOCKET_URL = "http://localhost:5000"
