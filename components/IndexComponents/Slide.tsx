@@ -10,14 +10,14 @@ const Slide = ({ background, text, active }: Props) => {
   let slideStyle = { backgroundImage: `url( ${background})` };
   return (
     <div className="slider__slide" data-active={active} style={slideStyle}>
-      <div className="slider__slide__text">{text}</div>
+      
     </div>
   );
 };
 
 let slides = [
   {
-    background: "https://picsum.photos/800/500?image=563",
+    background: "https://res.cloudinary.com/mye-soporte/image/upload/v1634322377/SOPORTE_unyuqz.png",
     text: "Road",
   },
   {
