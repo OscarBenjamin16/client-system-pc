@@ -1,5 +1,4 @@
 import { RatingVals } from "../../interfaces/rating";
-import { showImageClient } from "../../services/client.service";
 import StarRatingComponent from "react-star-rating-component";
 import { useAuth } from "../../hooks/useAuth";
 import { Context } from "../../interfaces/context";
@@ -16,16 +15,10 @@ const RatingInfo = (props: Props) => {
       {rd && rd.cliente.id !== ctx.auth?.clienteid && (
           <div className="shadow-md p-2 mt-8">
             <div className="flex shadow-md rounded p-2 md:p-8">
-              {/* <div>
-                <img
-                  src={`${showImageClient(rd.cliente.imagen)}`}
-                  style={{borderRadius:'50%',width:'3rem',height:'3rem'}}
-                />
-              </div> */}
                <div
                 className="rounded-full h-14 w-14"
                 style={{
-                  background: `url(${showImageClient(rd.cliente.imagen)})`,
+                  background: `url("/assets/icons/user.png")`,
                   backgroundSize:'cover',
                   backgroundPosition:'center'
                 }}

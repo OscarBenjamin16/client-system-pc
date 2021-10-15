@@ -1,7 +1,6 @@
 import React, { SetStateAction, useEffect, useState } from "react";
 import { RatingVals } from "../../interfaces/rating";
 import Popper, { ReferenceObject } from "popper.js";
-import { showImageClient } from "../../services/client.service";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import StarRatingComponent from "react-star-rating-component";
@@ -42,7 +41,7 @@ const UserLogRating = (props: Props) => {
               <div
                 className="rounded-full h-14 w-14"
                 style={{
-                  background: `url(${showImageClient(userLogRating.cliente.imagen)})`,
+                  background: `url("/assets/icons/user.png")`,
                   backgroundSize:'cover',
                   backgroundPosition:'center'
                 }}

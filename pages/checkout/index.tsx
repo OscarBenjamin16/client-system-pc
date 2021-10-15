@@ -8,13 +8,10 @@ import { Cart } from "../../interfaces/product";
 import {
   addReservation,
   checkCupon,
-  checkout,
   clearCart,
   getItems,
 } from "../../services/cart.service";
 import { getToken } from "../../services/token.service";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaypal } from "@fortawesome/free-brands-svg-icons";
 import { io } from "socket.io-client";
 import { SOCKET_URL } from "../../utils/constants";
 
