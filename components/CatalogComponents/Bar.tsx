@@ -38,7 +38,10 @@ const Bar = (props: Props) => {
           const prd = values.sort(
             (a: PVenta, b: PVenta) => b.totalVenta - a.totalVenta
           );
-          setProducts(prd);
+           const products = prd.filter(
+            (product: Product) => product.status === true
+          );
+          setProducts(products);
           setPagination({
             nextPage: res.nextPage,
             prevPage: res.prevPage,
