@@ -9,6 +9,7 @@ function useStickyState(
   setProd: Dispatch<SetStateAction<Product | undefined>>
 ) {
   if (value) {
+    console.log(value)
     let total =
       Number(value.costo_standar) -
       (Number(value.costo_standar) * Number(value.descuento)) / 100;
@@ -16,7 +17,8 @@ function useStickyState(
       id: value.id,
       qt: 1,
       price: total,
-      original_price:Number(value.costo_standar)
+      original_price: Number(value.costo_standar),
+      stock: Number(value.catidad_por_unidad),
     };
     setItemCart(values);
     setProd(undefined);
@@ -39,12 +41,9 @@ export default function ProductInfo(props: CatalogProps) {
         }
       >
         <Link href={`/product/${product.id}`}>
-          <div
-            className="w-full h-full flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l text-center overflow-hidden"
-            style={{
-              backgroundImage: `url('${product.image}')`,
-            }}
-          ></div>
+          <div>
+            <img className="max-h-56" src={product.image} />
+          </div>
         </Link>
       </div>
       <div className="w-7/12 p-3 flex flex-col">

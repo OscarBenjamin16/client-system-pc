@@ -5,7 +5,7 @@ export async function getPaginatedProducts(page: number, search: string,order:nu
     return response.json();
 }
 export async function getBestRating(page:number,limit?:number){
-    const response = await fetch(`${SERVER_API}/producto/more-ratings?pagina=${page}&limit=${limit}`)
+    const response = await fetch(`${SERVER_API}/producto/more-ratings?pagina=${page}`)
     return response.json();
 }
 export async function getMostSellers(page:number){

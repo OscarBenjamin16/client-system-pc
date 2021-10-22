@@ -92,14 +92,14 @@ const TD = (props: Props) => {
               onClick={remove}
               className="bg-red-500 p-1 px-4 text-xs text-white mr-3 rounded"
             >
-              <FontAwesomeIcon icon={faMinus} />
+              <FontAwesomeIcon className="w-3" icon={faMinus} />
             </button>
             <p>{item?.qt}</p>
             <button
               onClick={add}
               className="bg-blue-500 p-1 px-4 text-xs text-white ml-3 rounded"
             >
-              <FontAwesomeIcon icon={faPlus} />
+              <FontAwesomeIcon className="w-3" icon={faPlus} />
             </button>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { Product } from "../../interfaces/product";
+import { Gallery, Product } from "../../interfaces/product";
 import { getProductById } from "../../services/catalog.service";
 import Layout from "../../components/Layout";
 import { RatingVals } from "../../interfaces/rating";
@@ -18,6 +18,7 @@ import { getToken } from "../../services/token.service";
 import Loading from "../../components/GlobalComponents/Loading";
 import CartButton from "../../components/CartComponents/CartButton";
 import { toast } from "react-toastify";
+import { getPhotos } from "../../services/gallery.service";
 
 const ProductInfo = () => {
   const [product, setProduct] = useState<Product>();
@@ -25,8 +26,10 @@ const ProductInfo = () => {
   const [ratingData, setRatingData] = useState<[RatingVals]>();
   const [userLogRating, setUserLogRating] = useState<RatingVals>();
   const [userToken, setUserToken] = useState(getToken());
+  const [img, setImg] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [totalReview, setTotalReview] = useState({ total: 0, users: 0 });
+  const [images, setImages] = useState<Gallery[] | undefined>();
   const [loadCart, setLoadCart] = useState<boolean>(false);
   const ctx: Context = useAuth();
   const { auth } = ctx;
@@ -39,7 +42,7 @@ const ProductInfo = () => {
           setProduct(res.producto);
         })
         .catch(() => {
-          toast.error("Ah ocurrido un error inesperado")
+          toast.error("Ah ocurrido un error inesperado");
         });
 
       getRating(Number(id))
@@ -48,7 +51,10 @@ const ProductInfo = () => {
             const totalRatingSum = res.ratings
               ?.map((rat: RatingVals) => rat.ratingNumber)
               .reduce((a = 0, b = 0) => a + b, 0);
-            setTotalReview({ total: totalRatingSum, users: res.ratings.length });
+            setTotalReview({
+              total: totalRatingSum,
+              users: res.ratings.length,
+            });
             if (getToken()) {
               const my: RatingVals = res.ratings.find(
                 (a: RatingVals) => a.cliente.id === auth?.clienteid
@@ -61,7 +67,7 @@ const ProductInfo = () => {
           }
         })
         .catch(() => {
-          toast.error("Ah ocurrido un error inesperado")
+          toast.error("Ah ocurrido un error inesperado");
         });
     }
     setIsLoading(false);
@@ -72,9 +78,22 @@ const ProductInfo = () => {
     getValues();
     return;
   }, [isLoading, id, auth]);
+  useEffect(() => {
+    const getImages = () => {
+      getPhotos(Number(id)).then((res) => {
+        if (res.ok) {
+          setImages(res.GalleryImages);
+          return;
+        }
+        setImages(undefined);
+      });
+    };
+    return getImages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
   return (
     <Layout>
-      {typeof product === 'undefined' ? (
+      {typeof product === "undefined" ? (
         <div>
           <Loading />
         </div>
@@ -84,24 +103,43 @@ const ProductInfo = () => {
             Detalles del producto
           </p>
           <CartButton loadCart={loadCart} setLoadCart={setLoadCart} />
-          <div className="flex flex-col md:flex-row rounded shadow mt-6">
-            <div className=" w-12/12 md:w-4/12 p-5 ml-10 mt-4">
+          <div className="flex flex-col lg:flex-row rounded shadow mt-6">
+            <div className=" w-12/12 lg:w-4/12 p-5 ml-10 mt-4">
               <Details setLoadCart={setLoadCart} product={product} />
             </div>
             <div className="p-2 flex md:p-5 justify-items-center items-center justify-center">
               {!isLoading && (
-                <div
-                  className=" w-60 h-60 flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l text-center overflow-hidden"
-                  style={{
-                    backgroundImage: `url('${product?.image}')`,
-                  }}
-                ></div>
+                <img src={img ? img : product?.image} className=" max-h-28 md:max-h-40 lg:max-h-48 xl:max-h-56" />
               )}
+              <div className="gris ml-4 grid-cols-4 gap-8">
+                <div
+                  onClick={() => setImg(product?.image)}
+                  className="border shadow p-2 rounded flex items-center justify-center cursor-pointer"
+                >
+                  <img
+                    className="max-h-20 img"
+                    src={product?.image}
+                    alt="none"
+                  />
+                </div>
+                {images &&
+                  images.map((img) => (
+                    <div
+                      key={img.id}
+                      onClick={() => setImg(img.imagen)}
+                      className="border shadow p-2 rounded flex items-center justify-center cursor-pointer"
+                    >
+                      <img
+                        className="max-h-20 img"
+                        src={img.imagen}
+                        alt="none"
+                      />
+                    </div>
+                  ))}
+              </div>
             </div>
             <div className="p-4 flex md:ml-16 justify-items-center items-center justify-center">
-              <TotalReview
-                totalReview={totalReview}
-              />
+              <TotalReview totalReview={totalReview} />
               <div className="bars ml-6">
                 <RatingBars ratingData={ratingData} />
               </div>

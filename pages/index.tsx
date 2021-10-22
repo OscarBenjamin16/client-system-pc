@@ -6,6 +6,7 @@ import BestProducts from "../components/IndexComponents/BestProducts";
 import MarksSlider from "../components/IndexComponents/MarksSlider";
 import InfoStore from "../components/IndexComponents/InfoStore";
 import { getBestRating, getNewProducts } from "../services/catalog.service";
+import Head from "next/head";
 import { PRating, Product } from "../interfaces/product";
 
 const index = () => {
@@ -37,6 +38,15 @@ const index = () => {
   }, []);
   return (
     <div>
+      <Head>
+        <title>M&E Soporte Tecnico</title>
+        <meta
+          name="description"
+          content="Venta de accesorios y reparacion de laptops"
+        />
+        <meta property="og:title" content="M&E Soporte Tecnico" key="title" />
+        <link rel="icon" href="/assets/logo-oficial.png" />
+      </Head>
       <Layout>
         <SliderImg />
         <div className="mt-8 md:mt-16 sm:p-4 mb-32 w-full">

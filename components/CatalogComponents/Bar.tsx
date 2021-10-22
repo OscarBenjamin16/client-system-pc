@@ -54,7 +54,7 @@ const Bar = (props: Props) => {
       case 2:
         getBestRating(1).then((res) => {
           const { values } = res;
-          const prd = values.sort(
+          const prd = values?.sort(
             (a: PRating, b: PRating) => b.total - a.total
           );
           setProducts(prd);
@@ -85,7 +85,7 @@ const Bar = (props: Props) => {
         <FontAwesomeIcon
           color={view ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.7)"}
           icon={faTh}
-          className="cursor-pointer"
+          className="cursor-pointer w-4"
           onClick={() => setView(true)}
         />
       </span>
@@ -93,7 +93,7 @@ const Bar = (props: Props) => {
         <FontAwesomeIcon
           color={view ? "rgba(0,0,0,0.7)" : "rgba(0,0,0,0.3)"}
           icon={faListUl}
-          className="cursor-pointer"
+          className="cursor-pointer w-4"
           onClick={() => setView(false)}
         />
       </span>

@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import router from "next/router";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [auth, setAuth] = useState<Token | undefined | null>();
@@ -39,6 +40,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <AuthContext.Provider value={authData}>
+        <Head>
+          <title>M&E Soporte Tecnico</title>
+          <meta
+            name="description"
+            content="Venta de accesorios y reparacion de laptops"
+          />
+          <meta property="og:title" content="M&E Soporte Tecnico" key="title" />
+          <link rel="icon" href="/assets/logo-oficial.png" />
+        </Head>
         <Component {...pageProps} />
       </AuthContext.Provider>
       <ToastContainer

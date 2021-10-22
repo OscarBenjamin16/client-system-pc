@@ -47,6 +47,10 @@ export function sumItemCart(product: Cart) {
     const cartsItems = getItems()
     const fnd = cartsItems.find((a: Cart) => a.id === product.id)
     const index = cartsItems.indexOf(fnd);
+    if(cartsItems[index].qt >= product.stock){
+        console.log("Nothing to add")
+        return;
+    }
     cartsItems[index].price = cartsItems[index].price + (cartsItems[index].price / cartsItems[index].qt)
     cartsItems[index].original_price = cartsItems[index].original_price + (cartsItems[index].original_price / cartsItems[index].qt)
     cartsItems[index].qt++

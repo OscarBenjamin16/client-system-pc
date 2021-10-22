@@ -82,7 +82,7 @@ const Dropdown = ({ color, reload, setReload }: Props) => {
                     closeDropdownPopover();
                   }}
                 >
-                  <FontAwesomeIcon icon={faBars} />
+                  <FontAwesomeIcon className="w-4" icon={faBars} />
                 </button>
               </div>
               <div

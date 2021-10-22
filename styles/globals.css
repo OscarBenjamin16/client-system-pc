@@ -6,8 +6,11 @@
 * {
   margin: 0;
   padding: 0;
+  
 }
-
+body{
+  overflow-x: hidden !important;
+}
 .slider__slide {
   height: 28.125rem;
   background-repeat: no-repeat;
