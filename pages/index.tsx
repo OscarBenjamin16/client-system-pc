@@ -21,7 +21,7 @@ const index = () => {
         setProducts(prods);
       }
     });
-    getBestRating(1, 3).then((res) => {
+    getBestRating(1).then((res) => {
       if (res.values) {
         const prd = res.values.sort(
           (a: PRating, b: PRating) => b.total - a.total
