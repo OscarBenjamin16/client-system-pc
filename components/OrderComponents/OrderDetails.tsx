@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Order, OrderDetail } from "../../interfaces/order";
 import { getOrderDetails } from "../../services/order.service";
 import { ReduceTotal } from "../../utils/reducers";
-import TD from "../CheckoutComponents/TD";
 import TH from "../CheckoutComponents/TH";
 import TDTable from "../GlobalComponents/TDTable";
 
