@@ -15,14 +15,19 @@ interface Props {
   setPagination: React.Dispatch<SetStateAction<Pagination | undefined>>;
   rangePagination: Function;
   getOfert: Function;
+  range: number | undefined;
+  setRange: React.Dispatch<SetStateAction<number | undefined>>;
 }
 
 const SearchSection = (props: Props) => {
+  const { range } = props;
   const [marks, setMarks] = useState<[Mark]>();
   const [categories, setCategories] = useState<[Category]>();
   const getValues = () => {
     getMarks().then((res) => {
-      const marks: [Mark] = res.marca.filter((mark: Mark) => mark.status === true);
+      const marks: [Mark] = res.marca.filter(
+        (mark: Mark) => mark.status === true
+      );
       setMarks(marks);
     });
     getCategories().then((res) => {
@@ -34,7 +39,10 @@ const SearchSection = (props: Props) => {
   };
   const onChangeMark: ChangeEventHandler<HTMLSelectElement> = (e) => {
     const mark = e.currentTarget.value;
-    getProductbyMark(Number(mark)).then((res) => {
+    getProductbyMark(
+      Number(mark),
+      range && range !== 0 ? range : 1000000000
+    ).then((res) => {
       if (!res.ok) {
         props.setProducts(null);
         return;
@@ -55,7 +63,10 @@ const SearchSection = (props: Props) => {
   };
   const onChangeCategory: ChangeEventHandler<HTMLSelectElement> = (e) => {
     const cat = e.currentTarget.value;
-    getProductbyCategory(Number(cat)).then((res) => {
+    getProductbyCategory(
+      Number(cat),
+      range && range !== 0 ? range : 1000000000
+    ).then((res) => {
       if (!res.ok) {
         props.setProducts(null);
         return;

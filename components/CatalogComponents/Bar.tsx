@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Pagination, PRating, Product, PVenta } from "../../interfaces/product";
 import { getBestRating, getMostSellers } from "../../services/catalog.service";
 interface Props {
-  range: number;
-  setRange: React.Dispatch<SetStateAction<number>>;
+  range: number | undefined;
+  setRange: React.Dispatch<SetStateAction<number | undefined >>;
   view: boolean;
   setView: Dispatch<SetStateAction<boolean>>;
   setOrder: Dispatch<SetStateAction<number>>;
@@ -33,12 +33,13 @@ const Bar = (props: Props) => {
     const op = e.currentTarget.value;
     switch (Number(op)) {
       case 1:
-        getMostSellers(1).then((res) => {
+        getMostSellers(1,range && range !== 0 ? range : 1000000000).then((res) => {
+          setRange(0)
           const { values } = res;
           const prd = values.sort(
             (a: PVenta, b: PVenta) => b.totalVenta - a.totalVenta
           );
-           const products = prd.filter(
+          const products = prd.filter(
             (product: Product) => product.status === true
           );
           setProducts(products);
@@ -52,15 +53,17 @@ const Bar = (props: Props) => {
         });
         break;
       case 2:
-        getBestRating(1).then((res) => {
+        getBestRating(1,range && range !== 0 ? range : 1000000000).then((res) => {
+          setRange(0)
           const { values } = res;
-          const prd = values?.sort(
+          const prd: [Product] = values?.sort(
             (a: PRating, b: PRating) => b.total - a.total
           );
-          setProducts(prd);
+          const newPrd = prd.filter((prd: Product) => prd.status);
+          setProducts(newPrd);
           setPagination({
             nextPage: res.nextPage,
-            prevPage: res.prevPage,
+            prevPage: res.prevPage, 
             currentPage: res.currentPage,
             totalPages: res.totalPages,
           });
@@ -120,7 +123,7 @@ const Bar = (props: Props) => {
           min="1"
           max="100"
           step="1"
-          defaultValue={`${range}`}
+          defaultValue={range}
           onChange={(e) => setRange(Number(e.target.value))}
         />
         <span className="font-bold text-center text-xs">${range}</span>

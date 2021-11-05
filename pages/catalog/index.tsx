@@ -17,7 +17,7 @@ const index = () => {
   const [reload, setReload] = useState<boolean>(false);
   const [loadCart, setLoadCart] = useState<boolean>(false);
   const [search, setSearch] = useState<string>();
-  const [range, setRange] = useState<number>(0);
+  const [range, setRange] = useState<number | undefined>(0);
   const [pagination, setPagination] = useState<Pagination>();
   const [order, setOrder] = useState<number>(0);
   const [rangePag, setRangePag] = useState<number[]>();
@@ -36,39 +36,27 @@ const index = () => {
     price: number = 0,
     order: number = 0
   ) => {
-    getPaginatedProducts(page, search, order)
-      .then((res) => {
-        let products: [Product] | undefined | null;
-        if (price !== 0) {
-          products = res.producto.filter(
-            (product: Product) =>
-              product.status === true && Number(product.costo_standar) <= price
-          );
-        } else {
-          products = res.producto.filter(
-            (product: Product) => product.status === true
-          );
-        }
-        if (res.empty) {
-          products = null;
-          return;
-        }
-        if (products && products.length < 1) {
-          setProducts(null);
-          setPagination(undefined);
-          setReload(false);
-          return;
-        }
-        setProducts(products);
-        setPagination({
-          nextPage: res.nextPage,
-          prevPage: res.prevPage,
-          currentPage: res.currentPage,
-          totalPages: res.totalPages,
-        });
-        rangePagination(1, res.totalPages);
-      })
-      setReload(false);
+    getPaginatedProducts(
+      page,
+      search,
+      order,
+      price && price !== 0 ? price : 1000000000
+    ).then((res) => {
+      if (!res.ok) {
+        setPagination(undefined);
+        setProducts(null);
+        return;
+      }
+      setProducts(res.producto);
+      setPagination({
+        nextPage: res.nextPage,
+        prevPage: res.prevPage,
+        currentPage: res.currentPage,
+        totalPages: res.totalPages,
+      });
+      rangePagination(1, res.totalPages);
+    });
+    setReload(false);
   };
   const getOffert = () => {
     const productsOfert = products
@@ -81,6 +69,7 @@ const index = () => {
     getProducts(1, search, range, order);
     return;
   }, [range, reload, order, search]);
+  console.log(products)
   return (
     <Layout>
       {typeof products === "undefined" ? (
@@ -90,10 +79,12 @@ const index = () => {
           <CartButton loadCart={loadCart} setLoadCart={setLoadCart} />
           <div className="w-12/12 md:w-2/12 lg:w-2/12 xl:w-2/12 p-4">
             <SearchSection
-              getOfert={getOffert}
               setProducts={setProducts}
               setPagination={setPagination}
               rangePagination={rangePagination}
+              getOfert={getOffert}
+              range={range}
+              setRange={setRange}
             />
             <div className="mt-6">
               <input
@@ -137,7 +128,7 @@ const index = () => {
             ) : (
               <NotResult />
             )}
-            {products !== null && (
+            {products && (
               <PaginationProducts
                 method={getProducts}
                 pagination={pagination}

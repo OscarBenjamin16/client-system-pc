@@ -9,7 +9,7 @@ function useStickyState(
   setProd: Dispatch<SetStateAction<Product | undefined>>
 ) {
   if (value) {
-    console.log(value)
+    console.log(value);
     let total =
       Number(value.costo_standar) -
       (Number(value.costo_standar) * Number(value.descuento)) / 100;
@@ -59,17 +59,17 @@ export default function ProductInfo(props: CatalogProps) {
         <span className="font-small md:text-sm overflow-hidden font-semibold mt-1">
           {product.categoria.categoria}
         </span>
-        <div className="mt-2 overflow-hidden">
-          <span className="absolute transform -rotate-45 text-white font-bold ml-2 lg:ml-4 z-10 mt-2 lg:mt-3 font-small lg:text-sm">
-            {Number(product.descuento)}%
-          </span>
-          <img
-            src="/assets/icons/sale-tag.svg"
-            alt="none"
-            className="w-8 md:w-10 lg:w-16"
-          />
-        </div>
-        <span className="bg-green-500 w-14 font-small rounded overflow-hidden lg:text-sm p-1 font-bold text-white mt-2">
+        {Number(product.descuento) > 0 && (
+          <div className="w-16 mt-4 overflow-hidden transform rotate-45 bg-red-500 text-xs px-4 py-1 rounded-3xl flex justify-center items-center">
+            <span className=" text-white font-bold font-small lg:text-sm">
+              {Number(product.descuento)}%
+            </span>
+          </div>
+        )}
+        <p className="line-through text-xs font-medium my-2">
+          {Number(product.descuento) > 0 && "$" + product.costo_standar}
+        </p>
+        <span className="bg-green-500 flex justify-center w-14 font-small rounded overflow-hidden lg:text-xs p-1 font-bold text-white mt-2">
           ${product.costo_standar}
         </span>
         <div className="grid grid-cols-1 gap-1 mt-4">
