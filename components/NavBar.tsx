@@ -64,8 +64,8 @@ const Dropdown = ({ color, reload, setReload }: Props) => {
       <div className="flex flex-wrap pb-2">
         <div className="w-full">
           <nav
-            style={{ zIndex: 40 }}
-            className="flex w-full flex-wrap items-center justify-between px-2 sm:py-3 navbar-expand-lg bg-indigo-500 fixed"
+            style={{ zIndex: 40,background:"#003998" }}
+            className="flex w-full flex-wrap items-center justify-between px-2 sm:py-3 navbar-expand-lg fixed"
           >
             <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
               <div className="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
