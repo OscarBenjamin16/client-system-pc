@@ -75,7 +75,7 @@ export default function ProductInfo(props: CatalogProps) {
         <div className="grid grid-cols-1 gap-1 mt-4">
           <button
             onClick={() => setProd(product)}
-            className="bg-blue-400 text-white font-bold font-small sm:text-xs rounded p-1 mt-4 w-full"
+            className="bg-blue-500 text-white font-bold font-small sm:text-xs rounded p-1 mt-4 w-full"
           >
             Agregar al carrito
           </button>
