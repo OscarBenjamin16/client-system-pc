@@ -17,6 +17,7 @@ const index = () => {
   const [reload, setReload] = useState<boolean>(false);
   const [loadCart, setLoadCart] = useState<boolean>(false);
   const [search, setSearch] = useState<string>();
+  const [take, setTake] = useState<number>(5);
   const [range, setRange] = useState<number | undefined>(0);
   const [pagination, setPagination] = useState<Pagination>();
   const [order, setOrder] = useState<number>(0);
@@ -34,13 +35,14 @@ const index = () => {
     page: number = 1,
     search: string = "",
     price: number = 0,
-    order: number = 0
+    order: number = 0,
+    take:number = 5
   ) => {
     getPaginatedProducts(
       page,
       search,
       order,
-      price && price !== 0 ? price : 1000000000
+      price && price !== 0 ? price : 1000000000,take
     ).then((res) => {
       if (!res.ok) {
         setPagination(undefined);
@@ -66,10 +68,9 @@ const index = () => {
     setPagination(undefined);
   };
   useEffect(() => {
-    getProducts(1, search, range, order);
+    getProducts(1, search, range, order,take);
     return;
-  }, [range, reload, order, search]);
-  console.log(products)
+  }, [range, reload, order, search,take]);
   return (
     <Layout>
       {typeof products === "undefined" ? (
@@ -90,6 +91,14 @@ const index = () => {
               <input
                 onChange={(e) => setSearch(e.currentTarget.value)}
                 type="text"
+                placeholder="Escribe para buscar"
+                className="border text-xs rounded p-1 w-full"
+              />
+            </div>
+             <div className="mt-6">
+              <input
+                onChange={(e) => setTake(Number(e.currentTarget.value))}
+                type="number"
                 placeholder="Escribe para buscar"
                 className="border text-xs rounded p-1 w-full"
               />
