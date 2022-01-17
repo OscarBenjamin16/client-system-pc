@@ -12,7 +12,7 @@ body{
   overflow-x: hidden !important;
 }
 .slider__slide {
-  height: 25rem;
+  height: 30rem;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
