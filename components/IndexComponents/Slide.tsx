@@ -17,8 +17,8 @@ const Slide = ({ background, active }: Props) => {
 
 let slides = [
   {
-    background: "https://res.cloudinary.com/mye-soporte/image/upload/v1634322377/SOPORTE_unyuqz.png",
-    text: "Road",
+    background: "https://res.cloudinary.com/mye-soporte/image/upload/v1642443129/Sin-t%C3%ADtulo-1_j2b8kb.png",
+    text: "M&E SOPORTE",
   },
   {
     background: "https://unsplash.it/800/500?image=580",
