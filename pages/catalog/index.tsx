@@ -88,22 +88,25 @@ const index = () => {
               setRange={setRange}
             />
             <div className="mt-6">
+              <label className="text-xs font-semibold text-gray-600 my-2">
+                Buscar
+               </label>
               <input
                 onChange={(e) => setSearch(e.currentTarget.value)}
                 type="text"
                 placeholder="Escribe para buscar"
-                className="border text-xs rounded p-1 w-full"
+                className="border border-gray-400 text-xs rounded p-1 w-full"
               />
             </div>
-             <div className="mt-6">
+             <div className="mt-3">
                <label className="text-xs font-semibold text-gray-600 my-2">
                 Cantidad a mostrar
                </label>
               <input
                 onChange={(e) => setTake(Number(e.currentTarget.value))}
                 type="number"
-                placeholder="Escribe para buscar"
-                className="border border-gray-500 text-xs rounded p-1 w-full"
+                placeholder="Escribe la cantidad a mostrar"
+                className="border border-gray-400 text-xs rounded p-1 w-full"
               />
             </div>
           </div>
