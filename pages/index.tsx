@@ -49,7 +49,7 @@ const index = () => {
       </Head>
       <Layout>
         <SliderImg />
-        <div className="mt-8 md:mt-16 sm:p-4 mb-32 w-full">
+        <div className="mt-8 md:mt-16 mt-20 sm:p-4 mb-32 w-full">
           {products && <NewProducts products={products} />}
           {rproducts && <BestProducts products={rproducts} />}
         </div>
