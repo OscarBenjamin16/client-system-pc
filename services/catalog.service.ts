@@ -4,28 +4,29 @@ export async function getPaginatedProducts(
   page: number,
   search: string,
   order: number,
-  price?: number
+  price?: number,
+   take:number =5
 ) {
   const response = await fetch(
     `${SERVER_API}/producto/products-paginate?pagina=${page}&producto=${search}&order=${order}&price=${
       price ? price : 10000
-    }`
+    }&take=${take}`
   );
   return response.json();
 }
-export async function getBestRating(page: number, price: number) {
+export async function getBestRating(page: number, price: number,take:number =5) {
   const response = await fetch(
     `${SERVER_API}/producto/more-ratings?pagina=${page}&price=${
       price ? price : 10000
-    }`
+    }&take=${take}`
   );
   return response.json();
 }
-export async function getMostSellers(page: number, price: number) {
+export async function getMostSellers(page: number, price: number,take:number =5) {
   const response = await fetch(
     `${SERVER_API}/producto/bestSellers?pagina=${page}&price=${
       price ? price : 10000
-    }`
+    }&take=${take}`
   );
   return response.json();
 }
